@@ -1,0 +1,4 @@
+---
+image_name: nginx:latest
+container_name: frontend
+container_port: 80

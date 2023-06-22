@@ -1,0 +1,22 @@
+---
+- hosts: all
+  become: true
+  vars_files:
+  - "./vars/default.yml"
+
+  tasks:
+  - name: Pull Nginx Image
+    docker_image:
+      name: "{{ image_name }}"
+      source: pull
+
+  - name: Create Nginx Container
+    docker_container:
+      name: "{{ container_name }}"
+      image: "{{ image_name }}"
+      state: present
+      exposed_ports:
+      - 80
+      recreate: yes
+      ports:
+      - "81:80"
