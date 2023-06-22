@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: ubuntu
   become: true
 
   tasks:
@@ -19,3 +19,23 @@
       name: libapache2-mod-php
       state: latest
     when: ansible_distribution == "Ubuntu"
+
+- hosts: rhel
+  become: true
+
+  tasks:
+  - name: update repository
+    yum:
+      update_cache: true
+
+  - name: install Apache2 
+    yum:
+      state: latest
+      name: httpd
+
+  - name: Enable httpd Service
+    systemd:
+      state: started
+      name: httpd
+      enabled: yes
+
