@@ -1,0 +1,15 @@
+---
+- hosts: ubuntu
+  become: true
+  vars_files:
+  - "./vars/packages.yml"
+
+  tasks:
+  - name: install apache and php packages
+    tags: always
+    package:
+      name:
+        - "{{ apache_package }}"
+        - "{{ php_package }}"
+      state: latest
+

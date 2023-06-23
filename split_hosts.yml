@@ -1,0 +1,22 @@
+---
+- hosts: all
+  become: true
+  tasks:
+  
+  - name: install apache2 and php
+    apt:
+      name:
+        - apache2
+        - libapache2-mod-php
+      state: latest
+      update_cache: yes
+    when: ansible_distribution in ["Ubuntu"]
+
+  - name: install httpd and php
+    yum:
+      name:
+        - httpd
+        - php
+      state: latest
+      update_cache: yes
+    when: ansible_distribution == "RedHat"
